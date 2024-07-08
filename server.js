@@ -9,20 +9,21 @@ const PORT = 2000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// MySQL Connection
+// MySQL Connection PROD
 const db = mysql.createConnection({
     host: 'mysql-franck-darren.alwaysdata.net',
     user: '367993',
     password: 'jeune355895',
     database: 'franck-darren_ecole241',
 });
+
 // Connect to MySQL
 db.connect((err) => {
     if (err) {
-        console.error('Error connecting to MySQL: ' + err.stack);
+        console.error('Erreur de connexion MySQL: ' + err.stack);
         return;
     }
-    console.log('Connected to MySQL as ID ' + db.threadId);
+    console.log('Connecté à mysql avec ID ' + db.threadId);
 });
 
 app.get('/', (req, res) => {
@@ -38,7 +39,7 @@ app.route('/api/apprenants')
     .get((req, res, next) => {
         db.query('SELECT * FROM apprenant', (err, results) => {
             if (err) {
-                console.error('Error executing query: ' + err.stack);
+                console.error("Erreur lors de l'execution de la requête: " + err.stack);
                 res.status(500).send("Erreur lors de la recupération de l'apprenant");
                 return;
             }
@@ -64,7 +65,7 @@ app.route('/api/apprenants/:id')
 app.post('/api/apprenants', (req, res) => {
     const { nom, prenom, sexe, quartier, referentiel, groupe } = req.body;
     // Validation des données
-    if (!nom || !prenom || !sexe || !quartier || !referentiel || !groupe) {
+    if (!nom || !sexe || !quartier || !referentiel || !groupe) {
         return res.status(400).send("Tous les champs doivent être renseignés");
     }
     db.query('INSERT INTO apprenant (nom, prenom, sexe, quartier, referentiel, groupe) VALUES (?, ?, ?, ?, ?, ?)', [nom, prenom, sexe, quartier, referentiel, groupe], (err, result) => {
