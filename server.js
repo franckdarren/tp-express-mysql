@@ -1,6 +1,5 @@
 import express from 'express';
 import mysql from 'mysql2';
-import myConnection from 'express-myconnection';
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -12,10 +11,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // MySQL Connection
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'nills',
+    host: 'mysql-franck-darren.alwaysdata.net',
+    user: '367993',
     password: 'jeune355895',
-    database: 'ecole241',
+    database: 'franck-darren_ecole241',
 });
 // Connect to MySQL
 db.connect((err) => {
