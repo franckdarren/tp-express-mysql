@@ -1,6 +1,7 @@
 import express from 'express';
 import mysql from 'mysql2';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import { ApprenantRouter } from './src/routes/apprenantRoute.js';
 
 const app = express();
