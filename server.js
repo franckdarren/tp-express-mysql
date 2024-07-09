@@ -6,8 +6,11 @@ import { ApprenantRouter } from './src/routes/apprenantRoute.js';
 const app = express();
 const PORT = 2000;
 
+
+
 // Middleware
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
