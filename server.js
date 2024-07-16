@@ -1,8 +1,9 @@
 import express from 'express';
-import mysql from 'mysql2';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import { ApprenantRouter } from './src/routes/apprenantRoute.js';
+import { ComputerRouter } from './src/routes/computerRoute.js';
+
 
 const app = express();
 const PORT = 2000;
@@ -10,9 +11,9 @@ const PORT = 2000;
 
 
 // Middleware
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -27,3 +28,6 @@ app.use(express.json());
 
 // Ajout des routes apprenants
 app.use('/api', ApprenantRouter);
+
+// Ajout des routes computers
+app.use('/api', ComputerRouter);

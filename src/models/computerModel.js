@@ -2,13 +2,14 @@ import mysql from 'mysql2';
 import bodyParser from 'body-parser';
 import { dbConnect } from '../services/db.js';
 
+
 // Utilisation de la connexion
 const db = dbConnect();
 
-export const ApprenantModel = {
-    // Recupérer tous les apprenants
-    getAllApprenants: (callback) => {
-        db.query('SELECT * FROM apprenant', (err, results) => {
+export const ComputerModel = {
+    // Recupérer tous les computers
+    getAllComputers: (callback) => {
+        db.query('SELECT * FROM computer', (err, results) => {
             if (err) {
                 console.error("Erreur lors de l'exécution de la requête: " + err.stack);
                 callback(err, null);
@@ -18,9 +19,9 @@ export const ApprenantModel = {
         });
     },
 
-    // Récupérer un apprenant par son ID
-    getApprenantById: (apprenantId, callback) => {
-        db.query('SELECT * FROM apprenant WHERE id_apprenant = ?', [apprenantId], (err, results) => {
+    // Récupérer un computer par son ID
+    getComputerById: (computerId, callback) => {
+        db.query('SELECT * FROM computer WHERE id_computer = ?', [computerId], (err, results) => {
             if (err) {
                 console.error("Erreur lors de l'exécution de la requête: " + err.stack);
                 callback(err, null);
@@ -30,43 +31,43 @@ export const ApprenantModel = {
         });
     },
 
-    // Ajouter un apprenant
-    createApprenant: (nom, prenom, referentiel, tel, id_computer, callback) => {
-        db.query('INSERT INTO apprenant (nom, prenom, referentiel, tel, id_computer) VALUES (?, ?, ?, ?, ?)', [nom, prenom, referentiel, tel, id_computer], (err, result) => {
+    // Ajouter un computer
+    createComputer: (marque, matricule, defectueux, callback) => {
+        db.query('INSERT INTO computer (marque, matricule, defectueux) VALUES (?, ?, ?)', [marque, matricule, defectueux], (err, result) => {
             if (err) {
                 console.error('Erreur lors de l\'exécution de la requête : ' + err.stack);
                 callback(err, null);
             } else {
-                console.log('Nouvel apprenant ajouté avec succès');
+                console.log('Nouveau computer ajouté avec succès');
                 callback(null, result);
             }
         });
     },
 
-    // Modifier un apprenant 
-    updateApprenant: (apprenantId, nom, prenom, referentiel, tel, id_computer, callback) => {
-        db.query('UPDATE apprenant SET nom = ?, prenom = ?, referentiel = ?, tel = ?, id_computer = ? WHERE id_apprenant = ?',
-            [nom, prenom, referentiel, tel, id_computer, apprenantId],
+    // Modifier un computer 
+    updateComputer: (computerId, marque, matricule, defectueux, callback) => {
+        db.query('UPDATE computer SET marque = ?, matricule = ?, defectueux = ? WHERE id_computer = ?',
+            [marque, matricule, defectueux, computerId],
             (err, result) => {
                 if (err) {
                     console.error('Erreur lors de l\'exécution de la requête: ' + err.stack);
                     callback(err, null);
                 } else {
-                    console.log('Apprenant modifié avec succès');
+                    console.log('Computer modifié avec succès');
                     callback(null, result);
                 }
             }
         );
     },
 
-    // supprimer un apprenant
-    deleteApprenant: (apprenantId, callback) => {
-        db.query('DELETE FROM apprenant WHERE id_apprenant = ?', [apprenantId], (err, result) => {
+    // supprimer un computer
+    deleteComputer: (computerId, callback) => {
+        db.query('DELETE FROM computer WHERE id_computer = ?', [computerId], (err, result) => {
             if (err) {
                 console.error('Erreur lors de l\'exécution de la requête: ' + err.stack);
                 callback(err, null);
             } else {
-                console.log('Apprenant supprimé avec succès');
+                console.log('Computer supprimé avec succès');
                 callback(null, result);
             }
         });

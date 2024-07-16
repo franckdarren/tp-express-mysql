@@ -29,14 +29,14 @@ export const ApprenantController = {
 
     // Ajouter un apprenant
     createApprenant: (req, res, next) => {
-        const { nom, prenom, sexe, quartier, referentiel, groupe } = req.body;
+        const { nom, prenom, referentiel, tel, id_computer } = req.body;
 
         // Validation des données
-        if (!nom || !sexe || !quartier || !referentiel || !groupe) {
+        if (!nom || !referentiel || !tel) {
             return res.status(400).send("Tous les champs doivent être renseignés");
         }
 
-        ApprenantModel.createApprenant(nom, prenom, sexe, quartier, referentiel, groupe, (err, result) => {
+        ApprenantModel.createApprenant(nom, prenom, referentiel, tel, id_computer, (err, result) => {
             if (err) {
                 res.status(400).send("Erreur lors de la création de l'apprenant");
             } else {
@@ -48,9 +48,9 @@ export const ApprenantController = {
     // Modifier un apprenant
     updateApprenant: (req, res, next) => {
         const apprenantId = req.params.id;
-        const { nom, prenom, sexe, quartier, referentiel, groupe } = req.body;
+        const { nom, prenom, referentiel, tel, id_computer } = req.body;
 
-        ApprenantModel.updateApprenant(apprenantId, nom, prenom, sexe, quartier, referentiel, groupe, (err, result) => {
+        ApprenantModel.updateApprenant(apprenantId, nom, prenom, referentiel, tel, id_computer, (err, result) => {
             if (err) {
                 res.status(400).send("Erreur lors de la mise à jour de l'apprenant");
             } else {
